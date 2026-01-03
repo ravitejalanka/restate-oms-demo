@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  restate:
+    image: restatedev/restate:latest
+    ports:
+      - "8080:8080"  # Restate ingress
+      - "9070:9070"  # Restate admin UI
+      - "9071:9071"  # Restate admin API
+    environment:
+      - RESTATE_META__ENABLED=true
+      - RESTATE_WORKER__INGRESS__URI=http://restate:8080
+      - RESTATE_WORKER__STORAGE__ROcksDB__PATH=/var/lib/restate
+    volumes:
+      - restate-data:/var/lib/restate
+    networks:
+      - restate-network
+
+volumes:
+  restate-data:
+
+networks:
+  restate-network:
+    driver: bridge

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew:*)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)",
+      "Bash(java:*)",
+      "Bash(bash:*)",
+      "Bash(JAVACMD=java ./gradlew:*)",
+      "Bash(cmd.exe:*)",
+      "Bash(jps:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
