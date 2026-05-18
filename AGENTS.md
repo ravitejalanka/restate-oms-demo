@@ -1,1 +1,49 @@
-IyMgU3RhcnQgaGVyZQoxLiBgc2V0dGluZ3MuZ3JhZGxlLmt0c2Ag4oCUIHVuZGVyc3RhbmQgdGhlIG11bHRpLW1vZHVsZSBsYXlvdXQuCjIuIGBvcmRlci1kb21haW4vc3JjL21haW4va290bGluL2Ag4oCUIGV4aXN0aW5nIGRvbWFpbiBtb2RlbHMgYW5kIGV2ZW50cy4KMy4gYG9yZGVyLWhhbmRsZXJzL3NyYy9tYWluL2tvdGxpbi9gIOKAlCBSZXN0YXRlIHNlcnZpY2UgaW1wbGVtZW50YXRpb25zIHRvIGVtdWxhdGUuCjQuIGBvcmRlci1hcGktZ2F0ZXdheS9zcmMvbWFpbi9rb3RsaW4vYCDigJQgUkVTVCBlbnRyeSBwb2ludHMgYW5kIGNsaWVudCBwYXR0ZXJucy4KCiMjIEFyY2hpdGVjdHVyZSBub3RlcwotIGBvcmRlci1kb21haW5gIGlzIGEgcHVyZSBLb3RsaW4gbW9kdWxlIHdpdGggbm8gU3ByaW5nIG9yIFJlc3RhdGUgZGVwZW5kZW5jaWVzOyBpdCBpcyBzaGFyZWQgYnkgYWxsIG90aGVyIG1vZHVsZXMuCi0gYG9yZGVyLWhhbmRsZXJzYCBob3N0cyBSZXN0YXRlIHNlcnZpY2VzICh3b3JrZmxvdyBhbmQgZXZlbnQgaGFuZGxlcnMpLiBJdCBkZXBlbmRzIG9uIGBvcmRlci1kb21haW5gIGFuZCBtdXN0IHJlbWFpbiBmcmVlIG9mIEhUVFAgY29uY2VybnMuCi0gYG9yZGVyLWFwaS1nYXRld2F5YCBpcyB0aGUgUkVTVCBmYWNhZGU7IGl0IHRyYW5zbGF0ZXMgSFRUUCByZXF1ZXN0cyBpbnRvIFJlc3RhdGUgc2VydmljZSBjYWxscyBhbmQgc2hvdWxkIG5vdCBjb250YWluIGJ1c2luZXNzIHJ1bGVzLgotIFJlc3RhdGUgcnVudGltZSBpcyBzdGFydGVkIHZpYSBgZG9ja2VyLWNvbXBvc2UueW1sYCBhbmQgY29ubmVjdHMgdG8gaGFuZGxlcnMgb3ZlciBIVFRQL2dSUEMuCgojIyBJbXBsZW1lbnRpbmcgYSBmZWF0dXJlCjEuIERlZmluZSBvciB1cGRhdGUgZG9tYWluIHR5cGVzIGluIGBvcmRlci1kb21haW4vc3JjL21haW4va290bGluLy4uLmAuCjIuIEFkZCB0aGUgc2VydmljZSBoYW5kbGVyIGluIGBvcmRlci1oYW5kbGVycy9zcmMvbWFpbi9rb3RsaW4vLi4uYCB1c2luZyBleGlzdGluZyBSZXN0YXRlIHNlcnZpY2UgcGF0dGVybnMuCjMuIEV4cG9zZSB0aGUgY2FwYWJpbGl0eSB2aWEgUkVTVCBpbiBgb3JkZXItYXBpLWdhdGV3YXkvc3JjL21haW4va290bGluLy4uLmAgaWYgZXh0ZXJuYWwgYWNjZXNzIGlzIHJlcXVpcmVkLgo0LiBBZGQgdW5pdCB0ZXN0cyB1bmRlciBgc3JjL3Rlc3Qva290bGluYCBpbiBlYWNoIG1vZGlmaWVkIG1vZHVsZS4KNS4gVXBkYXRlIGBkb2NzL2AgaWYgdGhlIGNoYW5nZSBhZmZlY3RzIHN5c3RlbSBiZWhhdmlvciBvciBwdWJsaWMgY29udHJhY3RzLgoKIyMgVGVzdGluZwotIEZ1bGwgc3VpdGU6IGAuL2dyYWRsZXcgdGVzdGAKLSBTaW5nbGUgbW9kdWxlOiBgLi9ncmFkbGV3IDpvcmRlci1kb21haW46dGVzdGAKLSBJbnRlZ3JhdGlvbiB0ZXN0cyByZXF1aXJlIHRoZSBSZXN0YXRlIHJ1bnRpbWU7IHJ1biBgZG9ja2VyIGNvbXBvc2UgdXAgLWRgIGZpcnN0LgotIFJlc3RhdGUtc3BlY2lmaWMgdGVzdHMgbWF5IHVzZSBlbWJlZGRlZCB0ZXN0IHJ1bm5lcnM7IGNoZWNrIGBvcmRlci1oYW5kbGVycy9zcmMvdGVzdC9rb3RsaW5gIGZvciBleGFtcGxlcy4KCiMjIFBSIHJlcXVpcmVtZW50cwotIEJyYW5jaCBmcm9tIGBtYWluYDogYGZlYXR1cmUvPGRlc2NyaXB0aW9uPmAgb3IgYGZpeC88ZGVzY3JpcHRpb24+YC4KLSBDb21taXQgbWVzc2FnZXMgaW4gaW1wZXJhdGl2ZSBtb29kOiBgQWRkIG9yZGVyIGNhbmNlbGxhdGlvbiBmbG93YC4KLSBSZXF1ZXN0IHJldmlldyBhZnRlciBgLi9ncmFkbGV3IGJ1aWxkYCBpcyBncmVlbi4KLSBLZWVwIFBScyBmb2N1c2VkOyBzcGxpdCBwdXJlIHJlZmFjdG9ycyBmcm9tIGZlYXR1cmUgd29yay4KCiMjIENvbW1vbiBwaXRmYWxscwoxLiBCbG9ja2luZyBJL08gaW5zaWRlIFJlc3RhdGUgaGFuZGxlcnMgdm9pZHMgZHVyYWJpbGl0eSBndWFyYW50ZWVzOyB1c2Ugc3VzcGVuZC1mcmllbmRseSBBUElzLgoyLiBEbyBub3QgaW1wb3J0IGdhdGV3YXkgRFRPcyBpbnRvIGBvcmRlci1oYW5kbGVyc2A7IHRyYW5zbGF0ZSBhdCB0aGUgZ2F0ZXdheSBib3VuZGFyeS4KMy4gQ2hhbmdpbmcgYSBkb21haW4gY2xhc3Mgd2l0aG91dCB1cGRhdGluZyBkb3duc3RyZWFtIG1vZHVsZXMgYnJlYWtzIGNvbXBpbGF0aW9uOyBzdGFydCB3aXRoIGBvcmRlci1kb21haW5gLgo0LiBSZXN0YXRlIHJ1bnRpbWUgbXVzdCBiZSBydW5uaW5nIGZvciBoYW5kbGVyIGRpc2NvdmVyeSBhbmQgaW50ZWdyYXRpb24gdGVzdHMuCjUuIEVkaXRpbmcgcm9vdCBgYnVpbGQuZ3JhZGxlLmt0c2AgY2hhbmdlcyBLb3RsaW4vSlZNIHNldHRpbmdzIGZvciBldmVyeSBtb2R1bGU7IHZlcmlmeSBjcm9zcy1tb2R1bGUgY29tcGlsYXRpb24u
+## Start Here
+
+Before writing any code, read:
+- `order-domain/src/main/kotlin/com/learning/restate/with/boot/domain/` – understand the domain events and commands (likely OrderCommand, OrderEvent, etc.)
+- `CLAUDE.md` — build instructions and conventions
+- `order-handlers/src/main/resources/application.yml` — Restate endpoint config
+- `order-api-gateway/src/main/resources/application.yml` — gateway server port and Restate ingress URL
+
+## Architecture Notes
+
+This is a **CQRS/Event Sourcing** system with **no traditional databases or brokers**. State is stored exclusively inside Restate Virtual Objects. The layers:
+
+- **order-domain**: Pure Kotlin module containing domain types, command/event definitions – no dependencies on Spring or Restate.
+- **order-handlers**: Implements Restate services (`@VirtualObject`, `@Workflow`) that handle commands, produce events, and update state. These are the **write side**.
+- **order-api-gateway**: Spring Web controllers that act as the **read side** and entry point for external clients. It invokes handlers via the Restate client SDK (calls go through the Restate ingress).
+
+Do **not** add JPA repositories, Kafka clients, or event store. All persistence lives in Restate.
+
+## Implementing a Feature — Step by Step
+
+1. **Domain model**: Define command/event classes in `order-domain/`. Use data classes, keep them immutable.
+2. **Handler service**: In `order-handlers/`, create a Restate Virtual Object (e.g., `OrderObject`) with methods annotated `@Handler` that emit events and return the new state. Reference existing `OrderWorkflow` or similar.
+3. **Idempotency**: Ensure handlers are deterministic; mark `@Idempotent` if safe, otherwise Restate manages deduplication.
+4. **Gateway endpoint**: In `order-api-gateway/`, add a `@RestController` method that calls `OrderObjectClient` (or Restate’s `call` API) and maps the returned view to a DTO.
+5. **Tests**: Write unit tests for domain logic; integration tests for handler workflows using Restate’s test kit (if present) or Spring Boot test slices with mocked Restate client.
+6. **Swagger**: Verify the new endpoint appears and is documented.
+
+## Testing
+
+- Run all tests: `./gradlew test`
+- Run module‑specific: `./gradlew :order-handlers:test`
+- No dedicated integration test profile found; use `@SpringBootTest` with `webEnvironment = RANDOM_PORT` and a TestRestateServer (if available) or mock the Restate client.
+- Domain tests should be pure Kotlin unit tests.
+- Ensure any new test does not require a running Restate server unless it’s an end‑to‑end test.
+
+## PR Requirements
+
+- Branch naming: `<type>/<short-description>` (`feat/add-approval-flow`, `fix/order-state`)
+- Commit messages: conventional commits (`feat:`, `fix:`, `chore:`)
+- PR must pass CI (if configured) and be reviewable by at least one team member.
+- If the feature changes a Virtual Object’s state shape, consider backward compatibility (snapshot upgrades in Restate).
+
+## Common Pitfalls
+
+- **Do not store state outside Restate** — no JPA, no Redis. Restate is the system of record.
+- **Avoid blocking calls in suspend functions** — handlers run on coroutines; use non‑blocking I/O or `Dispatchers.IO` if unavoidable.
+- **Idempotency is critical** — a handler may be retried; never use random IDs or external mutable state without careful deduplication.
+- **Gateways must go through Restate Ingress** — do not directly call handler HTTP endpoints; use the Restate client so that calls are routed through the runtime and benefit from durable execution.
+- **Don’t add Spring Data starters** — the build does not include them, and they would conflict with the Restate‑first persistence model.
