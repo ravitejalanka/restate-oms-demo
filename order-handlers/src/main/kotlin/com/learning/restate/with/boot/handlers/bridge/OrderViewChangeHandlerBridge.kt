@@ -8,8 +8,22 @@ import com.learning.restate.with.boot.handlers.service.OrderViewHandlerClient
 import dev.restate.sdk.kotlin.Context
 import org.springframework.stereotype.Component
 
+/**
+ * Bridge component that connects the change handler pattern to the OrderViewHandler
+ *
+ * This component implements the ChangeHandler interface and forwards events to the
+ * OrderViewHandler Restate service using the generated client.
+ */
 @Component
 class OrderViewChangeHandlerBridge : ChangeHandler {
+    /**
+     * Handle changes by forwarding to the OrderViewHandler
+     *
+     * @param ctx Context provided by Restate
+     * @param aggregateKey The key identifying the aggregate that generated the events
+     * @param currentState The current state of the order (can be null)
+     * @param events List of events that occurred
+     */
     override suspend fun handleChange(
         ctx: Context,
         aggregateKey: String,

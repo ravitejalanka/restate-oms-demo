@@ -13,11 +13,23 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.UUID
 
+/**
+ * REST controller for managing orders
+ *
+ * Provides HTTP endpoints for creating, updating, and querying orders.
+ * All operations are processed through the Restate workflow engine.
+ */
 @RestController
 @RequestMapping("/orders")
 @Tag(name = "Orders", description = "Order management API")
 class OrderRestController(private val client: Client) {
 
+    /**
+     * Create a new order
+     *
+     * @param request The order creation request containing customer and item details
+     * @return Response with the created order details and events
+     */
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Create a new order")
     suspend fun createOrder(@RequestBody request: CreateOrderRequest): ResponseEntity<OrderResponse> {
@@ -32,6 +44,12 @@ class OrderRestController(private val client: Client) {
         return executeCommand(orderId, command, "Order created successfully")
     }
 
+    /**
+     * Confirm an existing order
+     *
+     * @param orderId The ID of the order to confirm
+     * @return Response with the updated order details and events
+     */
     @PostMapping("/{orderId}/confirm")
     @Operation(summary = "Confirm an order")
     suspend fun confirmOrder(
@@ -41,6 +59,13 @@ class OrderRestController(private val client: Client) {
         return executeCommand(orderId, command, "Order confirmed successfully")
     }
 
+    /**
+     * Ship an order
+     *
+     * @param orderId The ID of the order to ship
+     * @param request The shipment details including tracking number
+     * @return Response with the updated order details and events
+     */
     @PostMapping(
         path = ["/{orderId}/ship"],
         consumes = [MediaType.APPLICATION_JSON_VALUE]
@@ -57,6 +82,13 @@ class OrderRestController(private val client: Client) {
         return executeCommand(orderId, command, "Order shipped successfully")
     }
 
+    /**
+     * Cancel an order
+     *
+     * @param orderId The ID of the order to cancel
+     * @param request The cancellation reason
+     * @return Response with the updated order details and events
+     */
     @PostMapping(
         path = ["/{orderId}/cancel"],
         consumes = [MediaType.APPLICATION_JSON_VALUE]
@@ -73,6 +105,12 @@ class OrderRestController(private val client: Client) {
         return executeCommand(orderId, command, "Order cancelled successfully")
     }
 
+    /**
+     * Mark an order as delivered
+     *
+     * @param orderId The ID of the order to mark as delivered
+     * @return Response with the updated order details and events
+     */
     @PostMapping("/{orderId}/deliver")
     @Operation(summary = "Mark order as delivered")
     suspend fun deliverOrder(
@@ -82,6 +120,12 @@ class OrderRestController(private val client: Client) {
         return executeCommand(orderId, command, "Order delivered successfully")
     }
 
+    /**
+     * Get order by ID
+     *
+     * @param orderId The ID of the order to retrieve
+     * @return Response with the order details or 404 if not found
+     */
     @GetMapping("/{orderId}")
     @Operation(summary = "Get order by ID")
     suspend fun getOrder(
@@ -108,6 +152,12 @@ class OrderRestController(private val client: Client) {
         )
     }
 
+    /**
+     * Get event history for an order
+     *
+     * @param orderId The ID of the order to retrieve events for
+     * @return Response with the order event history
+     */
     @GetMapping("/{orderId}/events")
     @Operation(summary = "Get event history for an order")
     suspend fun getOrderEvents(
@@ -132,6 +182,11 @@ class OrderRestController(private val client: Client) {
         )
     }
 
+    /**
+     * Get all orders
+     *
+     * @return Response with all orders in the system
+     */
     @GetMapping
     @Operation(summary = "Get all orders")
     suspend fun getAllOrders(): ResponseEntity<Any> {
@@ -154,6 +209,14 @@ class OrderRestController(private val client: Client) {
         )
     }
 
+    /**
+     * Helper method to execute a command and return structured response
+     *
+     * @param orderId The ID of the order to process
+     * @param command The command to execute
+     * @param successMessage Message to include in successful response
+     * @return Response with order details and execution results
+     */
     private suspend fun executeCommand(
         orderId: String,
         command: OrderCommand,
