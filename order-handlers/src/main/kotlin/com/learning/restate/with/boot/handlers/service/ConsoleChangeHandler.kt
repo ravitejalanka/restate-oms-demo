@@ -7,10 +7,25 @@ import dev.restate.sdk.kotlin.Context
 import dev.restate.sdk.springboot.RestateService
 import org.slf4j.LoggerFactory
 
+/**
+ * Handler that logs order events to the console for monitoring and debugging purposes.
+ *
+ * This handler receives events from the order aggregate and provides real-time
+ * visibility into order processing by logging key information about each event.
+ */
 @RestateService
 class ConsoleChangeHandler {
     private val log = LoggerFactory.getLogger(ConsoleChangeHandler::class.java)
 
+    /**
+     * Handle incoming change notifications and log them to the console.
+     *
+     * This method processes the change request, logs key information about
+     * the order events, and provides visibility into system behavior.
+     *
+     * @param ctx Restate context for the current invocation
+     * @param request The change handler request containing events to process
+     */
     @Handler
     suspend fun handle(ctx: Context, request: ChangeHandlerRequest) {
         val aggregateKey = request.aggregateKey
