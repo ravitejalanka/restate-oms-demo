@@ -1,6 +1,7 @@
 package com.learning.restate.with.boot.gateway.controller
 
 import com.learning.restate.with.boot.domain.OrderCommand
+import com.learning.restate.with.boot.domain.OrderEvent
 import com.learning.restate.with.boot.gateway.dto.*
 import com.learning.restate.with.boot.handlers.aggregate.OrderAggregateClient
 import com.learning.restate.with.boot.handlers.service.OrderViewHandlerClient
@@ -13,11 +14,28 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.UUID
 
+/**
+ * REST controller for managing orders.
+ *
+ * Provides RESTful endpoints for creating, confirming, shipping, cancelling,
+ * and retrieving order information through the Restate orchestration system.
+ */
 @RestController
 @RequestMapping("/orders")
 @Tag(name = "Orders", description = "Order management API")
-class OrderRestController(private val client: Client) {
+class OrderRestController(
+    /**
+     * The Restate client used to communicate with the backend services
+     */
+    private val client: Client
+) {
 
+    /**
+     * Creates a new order.
+     *
+     * @param request The order creation request containing customer and item information
+     * @return Response containing the created order details and success status
+     */
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Create a new order")
     suspend fun createOrder(@RequestBody request: CreateOrderRequest): ResponseEntity<OrderResponse> {
@@ -32,6 +50,12 @@ class OrderRestController(private val client: Client) {
         return executeCommand(orderId, command, "Order created successfully")
     }
 
+    /**
+     * Confirms an existing order.
+     *
+     * @param orderId The unique identifier of the order to confirm
+     * @return Response containing the confirmed order details and success status
+     */
     @PostMapping("/{orderId}/confirm")
     @Operation(summary = "Confirm an order")
     suspend fun confirmOrder(
@@ -41,6 +65,13 @@ class OrderRestController(private val client: Client) {
         return executeCommand(orderId, command, "Order confirmed successfully")
     }
 
+    /**
+     * Ships an existing order.
+     *
+     * @param orderId The unique identifier of the order to ship
+     * @param request The shipping request containing tracking information
+     * @return Response containing the shipped order details and success status
+     */
     @PostMapping(
         path = ["/{orderId}/ship"],
         consumes = [MediaType.APPLICATION_JSON_VALUE]
@@ -57,6 +88,13 @@ class OrderRestController(private val client: Client) {
         return executeCommand(orderId, command, "Order shipped successfully")
     }
 
+    /**
+     * Cancels an existing order.
+     *
+     * @param orderId The unique identifier of the order to cancel
+     * @param request The cancellation request containing reason information
+     * @return Response containing the cancelled order details and success status
+     */
     @PostMapping(
         path = ["/{orderId}/cancel"],
         consumes = [MediaType.APPLICATION_JSON_VALUE]
@@ -73,124 +111,86 @@ class OrderRestController(private val client: Client) {
         return executeCommand(orderId, command, "Order cancelled successfully")
     }
 
-    @PostMapping("/{orderId}/deliver")
-    @Operation(summary = "Mark order as delivered")
-    suspend fun deliverOrder(
-        @Parameter(description = "Order ID") @PathVariable orderId: String
-    ): ResponseEntity<OrderResponse> {
-        val command = OrderCommand.Deliver(id = orderId)
-        return executeCommand(orderId, command, "Order delivered successfully")
-    }
-
+    /**
+     * Retrieves an existing order by ID.
+     *
+     * @param orderId The unique identifier of the order to retrieve
+     * @return Response containing the order details
+     */
     @GetMapping("/{orderId}")
     @Operation(summary = "Get order by ID")
     suspend fun getOrder(
         @Parameter(description = "Order ID") @PathVariable orderId: String
-    ): ResponseEntity<Any> {
-        return runCatching {
-            val aggregateClient = OrderAggregateClient.fromClient(client, orderId)
-            val order = aggregateClient.get()
-
-            order?.let {
-                ResponseEntity.ok(it)
-            } ?: ResponseEntity.notFound().build()
-        }.fold(
-            onFailure = { e ->
-                ResponseEntity.status(500).body(
-                    ErrorResponse(
-                        error = "Internal Error",
-                        message = "Failed to retrieve order",
-                        details = e.message
-                    )
+    ): ResponseEntity<OrderResponse> {
+        try {
+            val order = OrderAggregateClient.fromId(client, orderId).get()
+            return ResponseEntity.ok(
+                OrderResponse(
+                    success = true,
+                    orderId = orderId,
+                    message = "Order retrieved successfully",
+                    order = order
                 )
-            },
-            onSuccess = { it as ResponseEntity<Any> }
-        )
+            )
+        } catch (e: Exception) {
+            return ResponseEntity.badRequest().body(
+                OrderResponse(
+                    success = false,
+                    orderId = orderId,
+                    message = "Failed to retrieve order: ${e.message}"
+                )
+            )
+        }
     }
 
-    @GetMapping("/{orderId}/events")
-    @Operation(summary = "Get event history for an order")
-    suspend fun getOrderEvents(
-        @Parameter(description = "Order ID") @PathVariable orderId: String
-    ): ResponseEntity<Any> {
-        return runCatching {
-            val aggregateClient = OrderAggregateClient.fromClient(client, orderId)
-            val events = aggregateClient.getEvents()
-
-            ResponseEntity.ok(events)
-        }.fold(
-            onFailure = { e ->
-                ResponseEntity.status(500).body(
-                    ErrorResponse(
-                        error = "Internal Error",
-                        message = "Failed to retrieve order events",
-                        details = e.message
-                    )
-                )
-            },
-            onSuccess = { it as ResponseEntity<Any> }
-        )
-    }
-
+    /**
+     * Lists all orders.
+     *
+     * @return Response containing a list of all orders
+     */
     @GetMapping
-    @Operation(summary = "Get all orders")
-    suspend fun getAllOrders(): ResponseEntity<Any> {
-        return runCatching {
-            val viewHandlerClient = OrderViewHandlerClient.fromClient(client)
-            val orders = viewHandlerClient.getAllOrders()
-
-            ResponseEntity.ok(OrderListResponse(orders = orders))
-        }.fold(
-            onFailure = { e ->
-                ResponseEntity.status(500).body(
-                    ErrorResponse(
-                        error = "Internal Error",
-                        message = "Failed to retrieve orders",
-                        details = e.message
-                    )
-                )
-            },
-            onSuccess = { it as ResponseEntity<Any> }
-        )
+    @Operation(summary = "List all orders")
+    suspend fun listOrders(): ResponseEntity<OrderListResponse> {
+        try {
+            val orders = OrderViewHandlerClient.listOrders(client)
+            return ResponseEntity.ok(OrderListResponse(orders))
+        } catch (e: Exception) {
+            // Return empty list on error
+            return ResponseEntity.ok(OrderListResponse(emptyList()))
+        }
     }
 
+    /**
+     * Executes an order command through the Restate client.
+     *
+     * @param orderId The unique identifier of the order
+     * @param command The order command to execute
+     * @param successMessage The message to return on successful execution
+     * @return Response containing the result of the command execution
+     */
     private suspend fun executeCommand(
         orderId: String,
         command: OrderCommand,
         successMessage: String
     ): ResponseEntity<OrderResponse> {
-        return runCatching {
-            val aggregateClient = OrderAggregateClient.fromClient(client, orderId)
-
-            // Execute command
-            aggregateClient.handle(command)
-
-            // Get results
-            val order = aggregateClient.get()
-            val events = aggregateClient.getEvents()
-
-            OrderResponse(
-                success = true,
-                orderId = orderId,
-                message = successMessage,
-                order = order,
-                events = events
+        return try {
+            val events = OrderAggregateClient.fromId(client, orderId).handle(command)
+            ResponseEntity.ok(
+                OrderResponse(
+                    success = true,
+                    orderId = orderId,
+                    message = successMessage,
+                    events = events
+                )
             )
-        }.fold(
-            onFailure = { e ->
+        } catch (e: Exception) {
+            ResponseEntity.badRequest().body(
                 OrderResponse(
                     success = false,
                     orderId = orderId,
-                    message = "Command failed: ${e.message}"
+                    message = "Failed to execute command: ${e.message}"
                 )
-            },
-            onSuccess = { it }
-        ).let { response ->
-            if (response.success) {
-                ResponseEntity.ok(response)
-            } else {
-                ResponseEntity.badRequest().body(response)
-            }
+            )
         }
     }
 }

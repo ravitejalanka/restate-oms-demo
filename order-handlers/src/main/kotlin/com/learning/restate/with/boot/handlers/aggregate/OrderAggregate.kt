@@ -13,13 +13,32 @@ import dev.restate.sdk.kotlin.*
 import dev.restate.sdk.springboot.RestateVirtualObject
 import kotlinx.coroutines.flow.toList
 
+/**
+ * Virtual object representing an order aggregate in the Restate system.
+ *
+ * This class manages the state and behavior of an order, handling commands
+ * and persisting events to maintain the order's lifecycle.
+ */
 @RestateVirtualObject
 class OrderAggregate {
     companion object {
+        /** State key for storing the list of events */
         private val EVENTS = stateKey<List<OrderEvent>>("events")
+        
+        /** State key for storing the current order state */
         private val STATE = stateKey<Order>("state")
     }
 
+    /**
+     * Handler method for processing order commands.
+     *
+     * This method loads the current state of the order, applies business logic
+     * to determine what events should occur, persists those events, updates the
+     * order state, and publishes the events to the read side.
+     *
+     * @param ctx The object context for this Restate virtual object
+     * @param command The order command to process
+     */
     @Handler
     suspend fun handle(ctx: ObjectContext, command: OrderCommand) {
         // Load existing state
@@ -48,6 +67,12 @@ class OrderAggregate {
         }
     }
 
+    /**
+     * Shared handler method for retrieving the current order state.
+     *
+     * @param ctx The shared object context for this Restate virtual object
+     * @return The current order state, or null if the order doesn't exist
+     */
     @Handler
     @Shared
     suspend fun get(ctx: SharedObjectContext): Order? {
@@ -58,6 +83,12 @@ class OrderAggregate {
             ?: events.fold(null as Order?) { s, e -> evolve(s, e) }
     }
 
+    /**
+     * Shared handler method for retrieving the events associated with this order.
+     *
+     * @param ctx The shared object context for this Restate virtual object
+     * @return List of events associated with this order
+     */
     @Handler
     @Shared
     suspend fun getEvents(ctx: SharedObjectContext): List<OrderEvent> {

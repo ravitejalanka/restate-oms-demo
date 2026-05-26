@@ -7,10 +7,22 @@ import dev.restate.sdk.kotlin.Context
 import dev.restate.sdk.springboot.RestateService
 import org.slf4j.LoggerFactory
 
+/**
+ * Service for handling order saga workflows.
+ *
+ * This service coordinates complex business processes related to orders,
+ * logging workflow progress and managing long-running transactions.
+ */
 @RestateService
 class OrderSagaHandler {
     private val log = LoggerFactory.getLogger(OrderSagaHandler::class.java)
 
+    /**
+     * Handles order events as part of a saga workflow.
+     *
+     * @param ctx The Restate context
+     * @param request The change handler request containing events to process
+     */
     @Handler
     suspend fun handle(ctx: Context, request: ChangeHandlerRequest) {
         val aggregateKey = request.aggregateKey
