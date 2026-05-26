@@ -9,8 +9,20 @@ import dev.restate.sdk.annotation.Handler
 import dev.restate.sdk.kotlin.Context
 import dev.restate.sdk.springboot.RestateService
 
+/**
+ * Service for handling order view updates.
+ *
+ * This service manages the read model for orders, updating denormalized
+ * order summaries based on domain events and providing query capabilities.
+ */
 @RestateService
 class OrderViewHandler {
+    /**
+     * Handles change events for an order by updating the read model.
+     *
+     * @param ctx The Restate context
+     * @param request The change handler request containing events to process
+     */
     @Handler
     suspend fun handle(ctx: Context, request: ChangeHandlerRequest) {
         request.events.forEach { event ->
@@ -62,6 +74,12 @@ class OrderViewHandler {
         }
     }
 
+    /**
+     * Retrieves all order summaries.
+     *
+     * @param ctx The Restate context
+     * @return A list of all order summaries
+     */
     @Handler
     suspend fun getAllOrders(ctx: Context): List<OrderSummary> {
         val orderIds = OrderSummaryIndexClient.fromContext(ctx, "index")
